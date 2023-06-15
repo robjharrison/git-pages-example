@@ -19,7 +19,7 @@
     <script>
 stlite.mount(
   {
-    requirements: ["plotly"], // Packages to install
+    requirements: ["plotly", "matplotlib"], // Packages to install
     entrypoint: "test_app.py", // The target file of the `streamlit run` command
     files: { "test_app.py": `
 import streamlit as st
@@ -28,32 +28,44 @@ import random
 import plotly.express as px
 import matplotlib as plt
 
-# Set title
-st.title('Hello, world!')
+
 
 # Text input for name
-name = st.text_input('Your name')
+chart_title= st.text_input('Chart title')
 
 # Button to scramble name
 if st.button('Scramble me mucka'):
-    name = list(name)  # Convert string to list
-    random.shuffle(name)  # Shuffle list
-    name = ''.join(name)  # Convert list back to string
-    st.write(f'Hello, {name}!')
+    chart_title= list(chart_title)  # Convert string to list
+    random.shuffle(chart_title)  # Shuffle list
+    chart_title= ''.join(chart_title)  # Convert list back to string
+    st.write(f'Hello, {chart_title}!')
     
-uploaded_files = st.file_uploader("Choose a file", accept_multiple_files=True, type=['png', 'jpg', 'csv', 'xlsx'])
+uploaded_file = st.file_uploader("Choose a file", accept_multiple_files=False, type=['png', 'jpg', 'csv', 'xlsx'])
 
-if uploaded_files:
+if uploaded_file:
     st.write("filename:", uploaded_file.name)
 
-# Create and display a simple DataFrame
-data = {
-    'Name': ['John', 'Anna', 'Peter', 'Linda'],
-    'Age': [23, 78, 22, 19],
-    'Country': ['USA', 'Sweden', 'Canada', 'Germany']
-}
-df = pd.DataFrame(data)
-st.dataframe(df) 
+    df = pd.read_csv(uploaded_file)
+    st.dataframe(df)
+
+    with st.sidebar:
+        option1 = st.sidebar.selectbox(
+        'What Category',
+        (df['category'].unique()))
+
+    df = df[df['category'] == option1]
+ 
+    with st.sidebar:
+        option2 = st.sidebar.selectbox(
+        'What Category_type',
+        (df['category_type'].unique()))
+
+    df = df[df['category_type'] == option2]
+
+
+    fig = px.line(df, x='time_period', y='number', title = chart_title)
+    st.plotly_chart(fig)
+ 
 `,
     },
   },
