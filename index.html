@@ -39,11 +39,6 @@ if st.button('Scramble me mucka'):
     name = ''.join(name)  # Convert list back to string
     st.write(f'Hello, {name}!')
 
-# Read and display HTML
-with open('index.html', 'r') as f:
-    html_string = f.read()
-st.markdown(html_string, unsafe_allow_html=True)
-
 # Create and display a simple DataFrame
 data = {
     'Name': ['John', 'Anna', 'Peter', 'Linda'],
