@@ -25,6 +25,8 @@ stlite.mount(
 import streamlit as st
 import pandas as pd
 import random
+import plotly.express as px
+import matplotlib as plt
 
 # Set title
 st.title('Hello, world!')
@@ -44,9 +46,6 @@ uploaded_files = st.file_uploader("Choose a file", accept_multiple_files=True, t
 if uploaded_files:
     st.write("filename:", uploaded_file.name)
 
-
-
-    
 # Create and display a simple DataFrame
 data = {
     'Name': ['John', 'Anna', 'Peter', 'Linda'],
