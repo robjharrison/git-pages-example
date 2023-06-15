@@ -21,7 +21,9 @@ stlite.mount(
   {
     requirements: ["plotly"], // Packages to install
     entrypoint: "test_app.py", // The target file of the `streamlit run` command
-    files: {
+    files: { "test_app.py": `
+ 
+
         import streamlit as st
 import pandas as pd
 import random
@@ -51,8 +53,8 @@ data = {
     'Country': ['USA', 'Sweden', 'Canada', 'Germany']
 }
 df = pd.DataFrame(data)
-st.dataframe(df)
-,
+st.dataframe(df) 
+`,
     },
   },
   document.getElementById("root")
