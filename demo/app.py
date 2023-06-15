@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import random
+import plotly.express as px
+import matplotlib as plt
 
 # Set title
 st.title('Hello, world!')
@@ -14,11 +16,11 @@ if st.button('Scramble me mucka'):
     random.shuffle(name)  # Shuffle list
     name = ''.join(name)  # Convert list back to string
     st.write(f'Hello, {name}!')
+    
+uploaded_files = st.file_uploader("Choose a file", accept_multiple_files=True, type=['png', 'jpg', 'csv', 'xlsx'])
 
-# Read and display HTML
-with open('index.html', 'r') as f:
-    html_string = f.read()
-st.markdown(html_string, unsafe_allow_html=True)
+if uploaded_files:
+    st.write("filename:", uploaded_file.name)
 
 # Create and display a simple DataFrame
 data = {
@@ -27,4 +29,4 @@ data = {
     'Country': ['USA', 'Sweden', 'Canada', 'Germany']
 }
 df = pd.DataFrame(data)
-st.dataframe(df)
+st.dataframe(df) 
