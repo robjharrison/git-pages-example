@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>stlite app</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.31.0/build/stlite.css"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.31.0/build/stlite.js"></script>
+    <script>
+stlite.mount(
+  {
+    requirements: ["plotly"], // Packages to install
+    entrypoint: "test_app.py", // The target file of the `streamlit run` command
+    files: {
+        import streamlit as st
+import pandas as pd
+import random
 
+# Set title
+st.title('Hello, world!')
+
+# Text input for name
+name = st.text_input('Your name')
+
+# Button to scramble name
+if st.button('Scramble me mucka'):
+    name = list(name)  # Convert string to list
+    random.shuffle(name)  # Shuffle list
+    name = ''.join(name)  # Convert list back to string
+    st.write(f'Hello, {name}!')
+
+# Read and display HTML
+with open('index.html', 'r') as f:
+    html_string = f.read()
+st.markdown(html_string, unsafe_allow_html=True)
+
+# Create and display a simple DataFrame
+data = {
+    'Name': ['John', 'Anna', 'Peter', 'Linda'],
+    'Age': [23, 78, 22, 19],
+    'Country': ['USA', 'Sweden', 'Canada', 'Germany']
+}
+df = pd.DataFrame(data)
+st.dataframe(df)
+,
+    },
+  },
+  document.getElementById("root")
+);
+    </script>
+  </body>
+</html>
