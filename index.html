@@ -50,14 +50,14 @@ if uploaded_file:
 
     with st.sidebar:
         option1 = st.sidebar.selectbox(
-        'What Category',
+        'What Category...',
         (df['category'].unique()))
 
     df = df[df['category'] == option1]
  
     with st.sidebar:
         option2 = st.sidebar.selectbox(
-        'What Category_type',
+        'What Category_type...',
         (df['category_type'].unique()))
 
     df = df[df['category_type'] == option2]
